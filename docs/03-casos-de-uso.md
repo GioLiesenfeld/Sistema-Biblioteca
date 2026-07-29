@@ -242,4 +242,238 @@ Esta seção apresenta os casos de uso identificados para o Sistema de Gerenciam
 
 - O estudante consulta suas multas.
 
-### 3.2 Casos de Uso do Bibliotecário
+## 3.2 Casos de Uso do Bibliotecário
+
+### UC08 – Fazer Login
+
+**Objetivo:** Permitir que o bibliotecário acesse o sistema por meio de suas credenciais institucionais.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve possuir uma conta cadastrada e ativa.
+
+**Fluxo Principal:**
+
+1. O bibliotecário seleciona a opção **"Fazer Login"**.
+2. O sistema solicita o e-mail institucional e a senha.
+3. O bibliotecário informa suas credenciais.
+4. O sistema valida as credenciais.
+5. O sistema autentica o bibliotecário.
+6. O sistema apresenta a página inicial.
+
+**Fluxo Alternativo 1 – Credenciais inválidas**
+
+4.1. O sistema informa que as credenciais são inválidas.
+4.2. O sistema solicita que o bibliotecário informe as credenciais novamente.
+4.3. O fluxo principal é retomado.
+
+**Fluxo Alternativo 2 – Recuperação de Senha**
+
+2.1. O bibliotecário seleciona a opção **"Esqueci minha senha"**.
+2.2. O sistema solicita o e-mail institucional.
+2.3. O bibliotecário informa o e-mail.
+2.4. O sistema envia as instruções para recuperação da senha.
+2.5. O bibliotecário redefine a senha.
+2.6. O fluxo principal é retomado.
+
+**Pós-condições:**
+- O bibliotecário encontra-se autenticado no sistema.
+
+---
+
+### UC09 – Localizar Estudante
+
+**Objetivo:** Permitir que o bibliotecário localize um estudante para realizar operações relacionadas à biblioteca.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve estar autenticado.
+
+**Fluxo Principal:**
+
+1. O bibliotecário identifica o estudante que deseja localizar.
+2. O bibliotecário pesquisa pelo nome ou pela turma do estudante.
+3. O sistema apresenta os estudantes encontrados.
+4. O bibliotecário seleciona o estudante.
+
+**Pós-condições:**
+- O estudante encontra-se selecionado para realização de outras operações.
+
+---
+
+### UC10 – Registrar Empréstimo
+
+**Objetivo:** Registrar o empréstimo de um exemplar para um estudante.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve estar autenticado.
+- O estudante deve estar selecionado.
+- O exemplar deve estar disponível para empréstimo.
+
+**Fluxo Principal:**
+
+1. O bibliotecário seleciona o estudante.
+2. O sistema apresenta o painel do estudante.
+3. O bibliotecário seleciona a opção **"Registrar Empréstimo"**.
+4. O sistema solicita as informações necessárias para realizar o empréstimo.
+5. O bibliotecário informa os dados do exemplar.
+6. O sistema verifica se o exemplar está disponível.
+7. O sistema calcula a data de devolução.
+8. O sistema registra o empréstimo.
+9. O sistema atualiza o status do exemplar.
+10. O sistema apresenta a confirmação do empréstimo.
+
+**Pós-condições:**
+- O empréstimo é registrado.
+- O exemplar passa para o status **Emprestado**.
+
+---
+
+### UC11 – Registrar Devolução
+
+**Objetivo:** Registrar a devolução de um exemplar emprestado.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve estar autenticado.
+- O estudante deve estar selecionado.
+- Deve existir um empréstimo ativo para o exemplar.
+
+**Fluxo Principal:**
+
+1. O bibliotecário seleciona o estudante.
+2. O sistema apresenta o painel do estudante.
+3. O bibliotecário seleciona a opção **"Registrar Devolução"**.
+4. O sistema registra a data da devolução.
+5. O sistema verifica se a devolução ocorreu após a data prevista.
+6. Caso haja atraso, o sistema calcula automaticamente a multa correspondente aos dias em atraso.
+7. O sistema apresenta o valor acumulado da multa, quando houver.
+8. O sistema atualiza o status do exemplar para **Disponível**.
+9. O sistema apresenta a confirmação da devolução.
+
+**Pós-condições:**
+- A devolução é registrada.
+- O exemplar passa para o status **Disponível**.
+- Havendo atraso, a multa é registrada e vinculada ao estudante.
+
+---
+
+### UC12 – Consultar Empréstimos
+
+**Objetivo:** Consultar o histórico de empréstimos de um estudante.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve estar autenticado.
+- O estudante deve estar selecionado.
+
+**Fluxo Principal:**
+
+1. O bibliotecário seleciona o estudante.
+2. O sistema apresenta o painel do estudante.
+3. O bibliotecário seleciona a opção **"Consultar Empréstimos"**.
+4. O sistema apresenta o histórico de empréstimos do estudante.
+
+**Pós-condições:**
+- O histórico de empréstimos é apresentado.
+
+---
+
+### UC13 – Consultar Multas
+
+**Objetivo:** Consultar o histórico de multas de um estudante.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve estar autenticado.
+- O estudante deve estar selecionado.
+
+**Fluxo Principal:**
+
+1. O bibliotecário seleciona o estudante.
+2. O sistema apresenta o painel do estudante.
+3. O bibliotecário seleciona a opção **"Consultar Multas"**.
+4. O sistema apresenta o histórico de multas do estudante.
+
+**Pós-condições:**
+- O histórico de multas e os respectivos valores acumulados são apresentados ao bibliotecário.
+
+---
+
+### UC14 – Alterar Status do Livro
+
+**Objetivo:** Alterar o status de um livro cadastrado.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve estar autenticado.
+- O livro deve estar cadastrado.
+
+**Fluxo Principal:**
+
+1. O bibliotecário seleciona o livro.
+2. O sistema apresenta os dados cadastrais do livro.
+3. O bibliotecário seleciona a opção **"Alterar Status do Livro"**.
+4. O sistema apresenta as opções de status.
+5. O bibliotecário seleciona o novo status.
+6. O sistema atualiza o status do livro.
+
+**Pós-condições:**
+- O status do livro é atualizado.
+
+---
+
+### UC15 – Cadastrar Livro
+
+**Objetivo:** Cadastrar um novo livro no acervo da biblioteca.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve estar autenticado.
+
+**Fluxo Principal:**
+
+1. O bibliotecário acessa a página inicial do sistema.
+2. O bibliotecário seleciona a opção **"Cadastrar Livro"**.
+3. O sistema solicita os dados obrigatórios do livro.
+4. O bibliotecário informa os dados.
+5. O sistema registra o livro.
+6. O sistema atualiza o acervo.
+
+**Pós-condições:**
+- O livro é cadastrado no sistema.
+
+---
+
+### UC16 – Cadastrar Exemplar
+
+**Objetivo:** Cadastrar novos exemplares de um livro existente.
+
+**Ator:** Bibliotecário
+
+**Pré-condições:**
+- O bibliotecário deve estar autenticado.
+- O livro deve estar previamente cadastrado.
+
+**Fluxo Principal:**
+
+1. O bibliotecário acessa a página inicial do sistema.
+2. O bibliotecário seleciona um livro previamente cadastrado.
+3. O sistema apresenta os dados do livro.
+4. O bibliotecário seleciona a opção **"Cadastrar Exemplar"**.
+5. O sistema solicita a quantidade de exemplares.
+6. O bibliotecário informa a quantidade.
+7. O sistema gera um código de identificação para cada exemplar cadastrado.
+8. O sistema conclui o cadastro.
+
+**Pós-condições:**
+- Os exemplares são cadastrados e vinculados ao livro.
