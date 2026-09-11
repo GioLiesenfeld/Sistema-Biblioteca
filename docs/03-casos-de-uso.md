@@ -244,6 +244,18 @@ Esta seção apresenta os casos de uso identificados para o Sistema de Gerenciam
 
 ## 3.2 Casos de Uso do Bibliotecário
 
+| Código | Caso de Uso |
+|--------|-------------|
+| UC08 | Fazer Login |
+| UC09 | Localizar Estudante |
+| UC10 | Registrar Empréstimo |
+| UC11 | Registrar Devolução |
+| UC12 | Consultar Empréstimos |
+| UC13 | Consultar Multas |
+| UC14 | Alterar Status do Livro |
+| UC15 | Cadastrar Livro |
+| UC16 | Cadastrar Exemplar |
+
 ### UC08 – Fazer Login
 
 **Objetivo:** Permitir que o bibliotecário acesse o sistema por meio de suas credenciais institucionais.
