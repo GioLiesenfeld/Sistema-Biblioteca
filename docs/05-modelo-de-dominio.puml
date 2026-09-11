@@ -1,0 +1,58 @@
+@startuml
+
+class Estudante{
+nome : String
+emailInstitucional : String
+senha : String
+statusConta: String  
+}
+class Turma{
+nome : String
+anoLetivo : String
+turno: String
+}
+class Bibliotecario{
+nome : String
+email : String
+senha : String 
+}
+class Livro{
+autor : String
+titulo : String
+isbn : String
+categoria : String
+}
+class Exemplar{
+codigoIdentificacao : String
+status : String
+}
+class Emprestimo{
+dataEmprestimo : Date
+dataPrevistaDevolucao : Date
+dataDevolucao : Date
+status : String
+}
+class Reserva{
+dataReserva : Data
+status : String 
+posicaoFila: Integer
+}
+class Multa{
+valor : Decimal
+diasAtraso: Integer
+
+}
+
+' RELACIONAMENTOS + MULTIPLICIDADES
+
+Turma "1" -- "0..*" Estudante : possui
+Livro "1" -- "0..*" Exemplar : possui
+Estudante "1" -- "0..*" Emprestimo : realiza
+Emprestimo "0" -- "1" Exemplar : refere-se a
+Estudante "1" -- "0..*" Reserva : possui
+Reserva "0..*" -- "1" Livro : refere-se a
+Estudante "1" -- "0..*" Multa : possui
+Multa "0..1" -- "1" Emprestimo : é gerada por
+Bibliotecario "1" -- "0..*" Emprestimo : registra
+
+@enduml
