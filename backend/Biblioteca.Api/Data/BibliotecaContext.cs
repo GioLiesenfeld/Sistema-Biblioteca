@@ -20,12 +20,22 @@ public class BibliotecaContext : DbContext
     public DbSet<Multa> Multas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Emprestimo>()
-            .HasOne(e => e.Multa)
-            .WithOne(m => m.Emprestimo)
-            .HasForeignKey<Multa>(m => m.EmprestimoId);
+{
+    modelBuilder.Entity<Emprestimo>()
+        .HasOne(e => e.Multa)
+        .WithOne(m => m.Emprestimo)
+        .HasForeignKey<Multa>(m => m.EmprestimoId);
 
-        base.OnModelCreating(modelBuilder);
-    }
+    modelBuilder.Entity<Multa>()
+        .Property(m => m.Valor)
+        .HasPrecision(10, 2);
+
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity<Multa>()
+    .HasOne(m => m.Estudante)
+    .WithMany(e => e.Multas)
+    .HasForeignKey(m => m.EstudanteId)
+    .OnDelete(DeleteBehavior.NoAction);
+}
 }
