@@ -11,6 +11,7 @@ builder.Services.AddDbContext<BibliotecaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<EmprestimoService>();
+builder.Services.AddScoped<ReservaService>();
 
 var app = builder.Build();
 
@@ -24,3 +25,4 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
