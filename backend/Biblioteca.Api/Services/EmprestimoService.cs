@@ -1,5 +1,6 @@
 using Biblioteca.Api.Data;
 using Biblioteca.Api.Models;
+using Biblioteca.Api.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca.Api.Services;
@@ -91,6 +92,22 @@ public class EmprestimoService
         await _context.SaveChangesAsync();
     }
 
+    public async Task<List<EmprestimoDto>> BuscarEmprestimosPorEstudanteAsync(int estudanteId)
+    {
+        return await _context.Emprestimos
+            .Where(e => e.EstudanteId == estudanteId)
+            .Select(e => new EmprestimoDto
+            {
+                Id = e.Id,
+                TituloLivro = e.Exemplar.Livro.Titulo,
+                CodigoExemplar = e.Exemplar.codigoIdentificacao,
+                DataEmprestimo = e.DataEmprestimo,
+                DataPrevistaDevolucao = e.DataPrevistaDevolucao,
+                DataDevolucao = e.DataDevolucao,
+                Status = e.Status
+            })
+            .ToListAsync();
+    }
     public async Task<Emprestimo?> BuscarEmprestimoPorIdAsync(int emprestimoId)
     {
         return await _context.Emprestimos
@@ -98,7 +115,6 @@ public class EmprestimoService
             .Include(e => e.Estudante)
             .FirstOrDefaultAsync(e => e.Id == emprestimoId);
     }
-    
     public async Task RegistrarDevolucaoAsync(int emprestimoId)
     {
         var emprestimo = await BuscarEmprestimoPorIdAsync(emprestimoId);
@@ -143,4 +159,5 @@ public class EmprestimoService
 
         await _context.SaveChangesAsync();
     }
+
 }

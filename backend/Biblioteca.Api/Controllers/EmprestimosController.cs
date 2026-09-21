@@ -33,4 +33,12 @@ public class EmprestimosController : ControllerBase
 
         return Ok("Devolução registrada com sucesso.");
     }
+    [HttpGet("estudante/{estudanteId}")]
+    public async Task<IActionResult> BuscarPorEstudante(int estudanteId)
+    {
+        var emprestimos = await _emprestimoService
+            .BuscarEmprestimosPorEstudanteAsync(estudanteId);
+
+        return Ok(emprestimos);
+    }
 }
