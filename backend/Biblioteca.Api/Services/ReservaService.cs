@@ -75,4 +75,35 @@ public class ReservaService
         await _context.SaveChangesAsync();
 
     }
+    public async Task CancelarReservaAsync(int reservaId)
+    {
+        var reserva = await BuscarReservaPorIdAsync(reservaId);
+
+        if (reserva == null)
+        {
+            throw new Exception("Reserva não encontrada.");
+        }
+        if (reserva.Status != "Ativa")
+        {
+            throw new Exception("Esta reserva não está ativa.");
+        }
+        var reservasPosteriores = await _context.Reservas
+        .Where(r =>
+            r.LivroId == reserva.LivroId &&
+            r.Status == "Ativa" &&
+            r.PosicaoFila > reserva.PosicaoFila)
+        .ToListAsync();
+
+        foreach (var reservaPosterior in reservasPosteriores)
+        {
+            reservaPosterior.PosicaoFila--;
+        }
+
+        reserva.Status = "Cancelada";
+        await _context.SaveChangesAsync();
+
+        
+    }
+    
+
 }

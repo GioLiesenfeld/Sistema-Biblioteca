@@ -24,4 +24,12 @@ public class ReservasController : ControllerBase
 
         return Ok("Reserva registrada com sucesso.");
     }
+
+    [HttpPost("{reservaId}/cancelamento")]
+    public async Task<IActionResult> CancelarReserva(int reservaId)
+    {
+        await _reservaService.CancelarReservaAsync(reservaId);
+
+        return Ok("Reserva cancelada com sucesso.");
+    }
 }
