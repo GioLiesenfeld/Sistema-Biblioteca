@@ -2,6 +2,7 @@ using Biblioteca.Api.Data;
 using Biblioteca.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -14,6 +15,7 @@ builder.Services.AddScoped<EmprestimoService>();
 builder.Services.AddScoped<ReservaService>();
 builder.Services.AddScoped<MultaService>();
 builder.Services.AddScoped<LivroService>();
+builder.Services.AddScoped<ExemplarService>();
 
 var app = builder.Build();
 
