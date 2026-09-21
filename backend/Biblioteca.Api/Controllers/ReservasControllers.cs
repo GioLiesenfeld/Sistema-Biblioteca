@@ -32,4 +32,12 @@ public class ReservasController : ControllerBase
 
         return Ok("Reserva cancelada com sucesso.");
     }
+    [HttpGet("estudante/{estudanteId}")]
+    public async Task<IActionResult> BuscarPorEstudante(int estudanteId)
+    {
+        var reservas = await _reservaService
+            .BuscarReservasPorEstudanteAsync(estudanteId);
+
+        return Ok(reservas);
+    }
 }

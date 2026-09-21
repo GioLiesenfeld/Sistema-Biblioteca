@@ -12,6 +12,7 @@ builder.Services.AddDbContext<BibliotecaContext>(options =>
 
 builder.Services.AddScoped<EmprestimoService>();
 builder.Services.AddScoped<ReservaService>();
+builder.Services.AddScoped<MultaService>();
 
 var app = builder.Build();
 

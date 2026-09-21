@@ -1,4 +1,5 @@
 using Biblioteca.Api.Data;
+using Biblioteca.Api.DTOs;
 using Biblioteca.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -102,8 +103,22 @@ public class ReservaService
         reserva.Status = "Cancelada";
         await _context.SaveChangesAsync();
 
-        
+
     }
-    
+    public async Task<List<ReservaDto>> BuscarReservasPorEstudanteAsync(int estudanteId)
+    {
+        return await _context.Reservas
+            .Where(r => r.EstudanteId == estudanteId)
+            .Select(r => new ReservaDto
+            {
+                Id = r.Id,
+                TituloLivro = r.Livro.Titulo,
+                DataReserva = r.DataReserva,
+                PosicaoFila = r.PosicaoFila,
+                Status = r.Status
+            })
+            .ToListAsync();
+    }
+
 
 }
