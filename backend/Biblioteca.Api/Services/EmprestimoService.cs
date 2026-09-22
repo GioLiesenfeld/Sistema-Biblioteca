@@ -159,5 +159,24 @@ public class EmprestimoService
 
         await _context.SaveChangesAsync();
     }
+    public async Task RenovarEmprestimoAsync(int emprestimoId)
+    {
+        var emprestimo = await BuscarEmprestimoPorIdAsync(emprestimoId);
+
+        if (emprestimo == null)
+        {
+            throw new Exception("Empréstimo não encontrado.");
+        }
+
+        if (emprestimo.Status != "Ativo")
+        {
+            throw new Exception("Somente empréstimos ativos podem ser renovados.");
+        }
+
+        emprestimo.DataPrevistaDevolucao =
+            emprestimo.DataPrevistaDevolucao.AddDays(7);
+
+        await _context.SaveChangesAsync();
+    }
 
 }
