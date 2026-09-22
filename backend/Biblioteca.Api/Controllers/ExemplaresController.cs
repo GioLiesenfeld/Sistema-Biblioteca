@@ -22,4 +22,13 @@ public class ExemplaresController : ControllerBase
 
         return Ok("Exemplar cadastrado com sucesso.");
     }
+    [HttpPut("{exemplarId}/status")]
+    public async Task<IActionResult> AlterarStatus(
+    int exemplarId,
+    AlterarStatusExemplarDto dto)
+    {
+        await _exemplarService.AlterarStatusAsync(exemplarId, dto);
+
+        return Ok("Status do exemplar alterado com sucesso.");
+    }
 }

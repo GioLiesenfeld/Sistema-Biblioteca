@@ -36,4 +36,23 @@ public class ExemplarService
 
         await _context.SaveChangesAsync();
     }
+    public async Task AlterarStatusAsync(int exemplarId, AlterarStatusExemplarDto dto)
+    {
+        var exemplar = await _context.Exemplares
+            .FirstOrDefaultAsync(e => e.Id == exemplarId);
+
+        if (exemplar == null)
+        {
+            throw new Exception("Exemplar não encontrado.");
+        }
+
+        if (dto.Status != "Disponível" && dto.Status != "Indisponível")
+        {
+            throw new Exception("Status inválido.");
+        }
+
+        exemplar.status = dto.Status;
+
+        await _context.SaveChangesAsync();
+    }
 }

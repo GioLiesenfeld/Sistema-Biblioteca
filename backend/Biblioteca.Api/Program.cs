@@ -16,6 +16,7 @@ builder.Services.AddScoped<ReservaService>();
 builder.Services.AddScoped<MultaService>();
 builder.Services.AddScoped<LivroService>();
 builder.Services.AddScoped<ExemplarService>();
+builder.Services.AddScoped<EstudanteService>();
 
 var app = builder.Build();
 
