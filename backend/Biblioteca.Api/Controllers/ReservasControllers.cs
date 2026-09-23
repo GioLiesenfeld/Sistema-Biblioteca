@@ -1,5 +1,6 @@
 using Biblioteca.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biblioteca.Api.Controllers;
 
@@ -15,8 +16,8 @@ public class ReservasController : ControllerBase
     }
     [HttpPost]
     public async Task<IActionResult> RegistrarReserva(
-    int estudanteId,
-    int livroId)
+    [Range(1, int.MaxValue)] int estudanteId,
+    [Range(1, int.MaxValue)] int livroId)
     {
         await _reservaService.RegistrarReservaAsync(
             estudanteId,

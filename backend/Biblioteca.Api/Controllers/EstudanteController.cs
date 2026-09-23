@@ -1,5 +1,6 @@
 using Biblioteca.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biblioteca.Api.Controllers;
 
@@ -13,13 +14,15 @@ public class EstudantesController : ControllerBase
     {
         _estudanteService = estudanteService;
     }
-
     [HttpGet("busca")]
-    public async Task<IActionResult> BuscarEstudantes(string termo)
+    public async Task<IActionResult> BuscarEstudantes(
+        [Required(ErrorMessage = "O termo de busca é obrigatório.")] string termo)
     {
         var estudantes = await _estudanteService
             .BuscarEstudantesAsync(termo);
 
         return Ok(estudantes);
     }
+
+
 }

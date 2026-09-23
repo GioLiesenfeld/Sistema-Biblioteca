@@ -1,5 +1,6 @@
 using Biblioteca.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biblioteca.Api.Controllers;
 
@@ -15,9 +16,9 @@ public class EmprestimosController : ControllerBase
     }
     [HttpPost]
     public async Task<IActionResult> RegistrarEmprestimo(
-    int estudanteId,
-    int exemplarId,
-    int bibliotecarioId)
+    [Range(1, int.MaxValue)] int estudanteId,
+    [Range(1, int.MaxValue)] int exemplarId,
+    [Range(1, int.MaxValue)] int bibliotecarioId)
     {
         await _emprestimoService.RegistrarEmprestimoAsync(
             estudanteId,
