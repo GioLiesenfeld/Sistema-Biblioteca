@@ -44,15 +44,8 @@ public class EmprestimosController : ControllerBase
     [HttpPost("{emprestimoId}/renovacao")]
     public async Task<IActionResult> RenovarEmprestimo(int emprestimoId)
     {
-        try
-        {
-            await _emprestimoService.RenovarEmprestimoAsync(emprestimoId);
+        await _emprestimoService.RenovarEmprestimoAsync(emprestimoId);
 
-            return Ok("Empréstimo renovado com sucesso.");
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        return Ok("Empréstimo renovado com sucesso.");
     }
 }

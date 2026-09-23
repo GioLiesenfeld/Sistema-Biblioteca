@@ -2,6 +2,7 @@ using Biblioteca.Api.Data;
 using Biblioteca.Api.Models;
 using Biblioteca.Api.DTOs;
 using Microsoft.EntityFrameworkCore;
+using Biblioteca.Api.Exceptions;
 
 namespace Biblioteca.Api.Services;
 
@@ -40,35 +41,28 @@ public class EmprestimoService
             .FirstOrDefaultAsync(b => b.Id == bibliotecarioId);
     }
     public async Task RegistrarEmprestimoAsync(
-        int estudanteId,
-        int exemplarId,
-        int bibliotecarioId)
+       int estudanteId,
+       int exemplarId,
+       int bibliotecarioId)
     {
         var estudante = await BuscarEstudantePorIdAsync(estudanteId);
 
         if (estudante == null)
-        {
-            throw new Exception("Estudante não encontrado.");
-        }
+            throw new NotFoundException("Estudante não encontrado.");
 
         var exemplar = await BuscarExemplarPorIdAsync(exemplarId);
 
         if (exemplar == null)
-        {
-            throw new Exception("Exemplar não encontrado.");
-        }
+            throw new NotFoundException("Exemplar não encontrado.");
 
         if (!ExemplarEstaDisponivel(exemplar))
-        {
-            throw new Exception("Exemplar não está disponível para empréstimo.");
-        }
+            throw new BusinessException(
+                "Exemplar não está disponível para empréstimo.");
 
         var bibliotecario = await BuscarBibliotecarioPorIdAsync(bibliotecarioId);
 
         if (bibliotecario == null)
-        {
-            throw new Exception("Bibliotecário não encontrado.");
-        }
+            throw new NotFoundException("Bibliotecário não encontrado.");
 
         var emprestimo = new Emprestimo
         {
@@ -120,14 +114,11 @@ public class EmprestimoService
         var emprestimo = await BuscarEmprestimoPorIdAsync(emprestimoId);
 
         if (emprestimo == null)
-        {
-            throw new Exception("Empréstimo não encontrado.");
-        }
+            throw new NotFoundException("Empréstimo não encontrado.");
 
         if (emprestimo.Status != "Ativo")
-        {
-            throw new Exception("Este empréstimo não está ativo.");
-        }
+            throw new BusinessException(
+                "Este empréstimo não está ativo.");
         var dataDevolucao = DateOnly.FromDateTime(DateTime.Today);
 
         emprestimo.DataDevolucao = dataDevolucao;
@@ -165,12 +156,13 @@ public class EmprestimoService
 
         if (emprestimo == null)
         {
-            throw new Exception("Empréstimo não encontrado.");
+            throw new NotFoundException("Empréstimo não encontrado.");
         }
 
         if (emprestimo.Status != "Ativo")
         {
-            throw new Exception("Somente empréstimos ativos podem ser renovados.");
+            throw new BusinessException(
+                "Somente empréstimos ativos podem ser renovados.");
         }
 
         emprestimo.DataPrevistaDevolucao =

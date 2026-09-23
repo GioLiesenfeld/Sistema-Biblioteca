@@ -1,6 +1,7 @@
 using Biblioteca.Api.Data;
 using Biblioteca.Api.DTOs;
 using Biblioteca.Api.Models;
+using Biblioteca.Api.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca.Api.Services;
@@ -21,7 +22,7 @@ public class ExemplarService
 
         if (livro == null)
         {
-            throw new Exception("Livro não encontrado.");
+            throw new NotFoundException("Livro não encontrado.");
         }
 
         var exemplar = new Exemplar
@@ -36,19 +37,23 @@ public class ExemplarService
 
         await _context.SaveChangesAsync();
     }
-    public async Task AlterarStatusAsync(int exemplarId, AlterarStatusExemplarDto dto)
+
+    public async Task AlterarStatusAsync(
+        int exemplarId,
+        AlterarStatusExemplarDto dto)
     {
         var exemplar = await _context.Exemplares
             .FirstOrDefaultAsync(e => e.Id == exemplarId);
 
         if (exemplar == null)
         {
-            throw new Exception("Exemplar não encontrado.");
+            throw new NotFoundException("Exemplar não encontrado.");
         }
 
-        if (dto.Status != "Disponível" && dto.Status != "Indisponível")
+        if (dto.Status != "Disponível" &&
+            dto.Status != "Indisponível")
         {
-            throw new Exception("Status inválido.");
+            throw new BusinessException("Status inválido.");
         }
 
         exemplar.status = dto.Status;
