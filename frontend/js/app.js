@@ -1,5 +1,84 @@
 let livrosCarregados = [];
 
+const selecaoPerfil =
+    document.getElementById("selecao-perfil");
+
+const sistema =
+    document.getElementById("sistema");
+
+const acessoEstudante =
+    document.getElementById("acesso-estudante");
+
+const acessoBibliotecario =
+    document.getElementById("acesso-bibliotecario");
+
+const menuEstudante =
+    document.querySelectorAll(".menu-estudante");
+
+const menuBibliotecario =
+    document.querySelectorAll(".menu-bibliotecario");
+
+const botaoTrocarPerfil =
+    document.getElementById("botao-trocar-perfil");
+
+botaoTrocarPerfil.addEventListener("click", () => {
+    sistema.style.display = "none";
+    selecaoPerfil.style.display = "block";
+});
+
+menuEstudante.forEach(item => {
+    item.style.display = "block";
+});
+
+menuBibliotecario.forEach(item => {
+    item.style.display = "block";
+});
+
+acessoEstudante.addEventListener("click", () => {
+    selecaoPerfil.style.display = "none";
+    sistema.style.display = "flex";
+
+    menuEstudante.forEach(item => {
+        item.style.display = "block";
+    });
+
+    menuBibliotecario.forEach(item => {
+        item.style.display = "none";
+    });
+
+    document.getElementById("menu-acervo").style.display = "block";
+
+    document.getElementById("titulo-pagina").textContent = "Acervo";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Encontre os livros disponíveis na biblioteca.";
+
+    exibirPesquisaLivros();
+    buscarLivros();
+});
+
+acessoBibliotecario.addEventListener("click", () => {
+    selecaoPerfil.style.display = "none";
+    sistema.style.display = "flex";
+
+    menuEstudante.forEach(item => {
+        item.style.display = "none";
+    });
+
+    menuBibliotecario.forEach(item => {
+        item.style.display = "block";
+    });
+
+    document.getElementById("menu-acervo").style.display = "block";
+
+    document.getElementById("titulo-pagina").textContent = "Acervo";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Encontre os livros disponíveis na biblioteca.";
+
+    exibirPesquisaLivros();
+    buscarLivros();
+});
 async function buscarLivros() {
     const resposta = await fetch("http://localhost:5124/api/livros");
 
