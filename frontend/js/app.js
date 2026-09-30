@@ -208,6 +208,22 @@ async function registrarEmprestimo(estudanteId, exemplarId) {
         alert(erro.detail || "Não foi possível registrar o empréstimo.");
     }
 }
+async function registrarDevolucao(emprestimoId) {
+    const resposta = await fetch(
+        `http://localhost:5124/api/emprestimos/${emprestimoId}/devolucao`,
+        {
+            method: "POST"
+        }
+    );
+
+    if (resposta.ok) {
+        alert("Devolução registrada com sucesso.");
+    } else {
+        const erro = await resposta.json();
+
+        alert(erro.detail || "Não foi possível registrar a devolução.");
+    }
+}
 function exibirPesquisaLivros() {
     const areaPesquisa = document.getElementById("area-pesquisa");
 
@@ -365,7 +381,8 @@ menuRegistrarEmprestimo.addEventListener("click", (event) => {
         Registrar empréstimo
     </button>
 `;
- const botaoRegistrarEmprestimo =
+
+    const botaoRegistrarEmprestimo =
         document.getElementById("botao-registrar-emprestimo");
 
     botaoRegistrarEmprestimo.addEventListener("click", () => {
@@ -378,8 +395,45 @@ menuRegistrarEmprestimo.addEventListener("click", (event) => {
         registrarEmprestimo(estudanteId, exemplarId);
     });
 });
-const campoPesquisa = document.getElementById("pesquisa-livro");
+const menuRegistrarDevolucao =
+    document.getElementById("menu-registrar-devolucao");
 
+menuRegistrarDevolucao.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    document.getElementById("titulo-pagina").textContent =
+        "Registrar Devolução";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Registre a devolução de um empréstimo.";
+
+    document.getElementById("lista-livros").innerHTML = "";
+
+    document.getElementById("area-pesquisa").innerHTML = `
+        <div>
+            <label for="devolucao-emprestimo">ID do empréstimo</label>
+            <input
+                type="number"
+                id="devolucao-emprestimo"
+                placeholder="Digite o ID do empréstimo"
+            >
+        </div>
+
+        <button id="botao-registrar-devolucao">
+            Registrar devolução
+        </button>
+    `;
+
+    const botaoRegistrarDevolucao =
+        document.getElementById("botao-registrar-devolucao");
+
+    botaoRegistrarDevolucao.addEventListener("click", () => {
+        const emprestimoId =
+            document.getElementById("devolucao-emprestimo").value;
+
+        registrarDevolucao(emprestimoId);
+    });
+});
 
 
 buscarLivros();
