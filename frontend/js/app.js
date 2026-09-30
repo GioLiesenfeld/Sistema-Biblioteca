@@ -224,6 +224,309 @@ async function registrarDevolucao(emprestimoId) {
         alert(erro.detail || "Não foi possível registrar a devolução.");
     }
 }
+async function renovarEmprestimo(emprestimoId) {
+    const resposta = await fetch(
+        `http://localhost:5124/api/emprestimos/${emprestimoId}/renovacao`,
+        {
+            method: "POST"
+        }
+    );
+
+    if (resposta.ok) {
+        alert("Empréstimo renovado com sucesso.");
+    } else {
+        const erro = await resposta.json();
+
+        alert(erro.detail || "Não foi possível renovar o empréstimo.");
+    }
+}
+async function cadastrarLivro(titulo, autor, isbn, categoria) {
+    const livro = {
+        titulo: titulo,
+        autor: autor,
+        isbn: isbn,
+        categoria: categoria
+    };
+
+    const resposta = await fetch(
+        "http://localhost:5124/api/livros",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(livro)
+        }
+    );
+
+    if (resposta.ok) {
+        alert("Livro cadastrado com sucesso.");
+    } else {
+        const erro = await resposta.json();
+
+        alert(erro.detail || "Não foi possível cadastrar o livro.");
+    }
+}
+async function cadastrarExemplar(codigoIdentificacao, livroId) {
+    const exemplar = {
+        codigoIdentificacao: codigoIdentificacao,
+        livroId: Number(livroId)
+    };
+
+    const resposta = await fetch(
+        "http://localhost:5124/api/exemplares",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(exemplar)
+        }
+    );
+
+    if (resposta.ok) {
+        alert("Exemplar cadastrado com sucesso.");
+    } else {
+        const erro = await resposta.json();
+
+        alert(erro.detail || "Não foi possível cadastrar o exemplar.");
+    }
+}
+async function alterarStatusExemplar(exemplarId, status) {
+    const dados = {
+        status: status
+    };
+
+    const resposta = await fetch(
+        `http://localhost:5124/api/exemplares/${exemplarId}/status`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        }
+    );
+
+    if (resposta.ok) {
+        alert("Status do exemplar alterado com sucesso.");
+    } else {
+        const erro = await resposta.json();
+
+        alert(erro.detail || "Não foi possível alterar o status do exemplar.");
+    }
+}
+const menuRenovarEmprestimo =
+    document.getElementById("menu-renovar-emprestimo");
+
+menuRenovarEmprestimo.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    document.getElementById("titulo-pagina").textContent =
+        "Renovar Empréstimo";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Renove o prazo de um empréstimo ativo.";
+
+    document.getElementById("lista-livros").innerHTML = "";
+
+    document.getElementById("area-pesquisa").innerHTML = `
+        <div>
+            <label for="renovacao-emprestimo">ID do empréstimo</label>
+            <input
+                type="number"
+                id="renovacao-emprestimo"
+                placeholder="Digite o ID do empréstimo"
+            >
+        </div>
+
+        <button id="botao-renovar-emprestimo">
+            Renovar empréstimo
+        </button>
+    `;
+    const botaoRenovarEmprestimo =
+        document.getElementById("botao-renovar-emprestimo");
+
+    botaoRenovarEmprestimo.addEventListener("click", () => {
+        const emprestimoId =
+            document.getElementById("renovacao-emprestimo").value;
+
+        renovarEmprestimo(emprestimoId);
+    });
+});
+const menuCadastrarLivro =
+    document.getElementById("menu-cadastrar-livro");
+
+menuCadastrarLivro.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    document.getElementById("titulo-pagina").textContent =
+        "Cadastrar Livro";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Cadastre um novo livro no acervo da biblioteca.";
+
+    document.getElementById("lista-livros").innerHTML = "";
+
+    document.getElementById("area-pesquisa").innerHTML = `
+        <div>
+            <label for="livro-titulo">Título</label>
+            <input
+                type="text"
+                id="livro-titulo"
+                placeholder="Digite o título"
+            >
+        </div>
+
+        <div>
+            <label for="livro-autor">Autor</label>
+            <input
+                type="text"
+                id="livro-autor"
+                placeholder="Digite o autor"
+            >
+        </div>
+
+        <div>
+            <label for="livro-isbn">ISBN</label>
+            <input
+                type="text"
+                id="livro-isbn"
+                placeholder="Digite o ISBN"
+            >
+        </div>
+
+        <div>
+            <label for="livro-categoria">Categoria</label>
+            <input
+                type="text"
+                id="livro-categoria"
+                placeholder="Digite a categoria"
+            >
+        </div>
+
+        <button id="botao-cadastrar-livro">
+            Cadastrar livro
+        </button>
+    `;
+    const botaoCadastrarLivro =
+        document.getElementById("botao-cadastrar-livro");
+
+    botaoCadastrarLivro.addEventListener("click", () => {
+        const titulo =
+            document.getElementById("livro-titulo").value;
+
+        const autor =
+            document.getElementById("livro-autor").value;
+
+        const isbn =
+            document.getElementById("livro-isbn").value;
+
+        const categoria =
+            document.getElementById("livro-categoria").value;
+
+        cadastrarLivro(titulo, autor, isbn, categoria);
+    });
+});
+const menuCadastrarExemplar =
+    document.getElementById("menu-cadastrar-exemplar");
+
+menuCadastrarExemplar.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    document.getElementById("titulo-pagina").textContent =
+        "Cadastrar Exemplar";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Cadastre um novo exemplar de um livro.";
+
+    document.getElementById("lista-livros").innerHTML = "";
+
+    document.getElementById("area-pesquisa").innerHTML = `
+        <div>
+            <label for="exemplar-codigo">Código de identificação</label>
+            <input
+                type="text"
+                id="exemplar-codigo"
+                placeholder="Digite o código do exemplar"
+            >
+        </div>
+
+        <div>
+            <label for="exemplar-livro">ID do livro</label>
+            <input
+                type="number"
+                id="exemplar-livro"
+                placeholder="Digite o ID do livro"
+            >
+        </div>
+
+        <button id="botao-cadastrar-exemplar">
+            Cadastrar exemplar
+        </button>
+    `;
+    const botaoCadastrarExemplar =
+        document.getElementById("botao-cadastrar-exemplar");
+
+    botaoCadastrarExemplar.addEventListener("click", () => {
+        const codigoIdentificacao =
+            document.getElementById("exemplar-codigo").value;
+
+        const livroId =
+            document.getElementById("exemplar-livro").value;
+
+        cadastrarExemplar(codigoIdentificacao, livroId);
+    });
+});
+const menuAlterarStatusExemplar =
+    document.getElementById("menu-alterar-status-exemplar");
+
+menuAlterarStatusExemplar.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    document.getElementById("titulo-pagina").textContent =
+        "Alterar Status do Exemplar";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Altere o status de um exemplar da biblioteca.";
+
+    document.getElementById("lista-livros").innerHTML = "";
+
+    document.getElementById("area-pesquisa").innerHTML = `
+        <div>
+            <label for="status-exemplar-id">ID do exemplar</label>
+            <input
+                type="number"
+                id="status-exemplar-id"
+                placeholder="Digite o ID do exemplar"
+            >
+        </div>
+
+        <div>
+            <label for="status-exemplar">Novo status</label>
+            <select id="status-exemplar">
+                <option value="Disponível">Disponível</option>
+                <option value="Indisponível">Indisponível</option>
+            </select>
+        </div>
+
+        <button id="botao-alterar-status-exemplar">
+            Alterar status
+        </button>
+    `;
+    const botaoAlterarStatusExemplar =
+        document.getElementById("botao-alterar-status-exemplar");
+
+    botaoAlterarStatusExemplar.addEventListener("click", () => {
+        const exemplarId =
+            document.getElementById("status-exemplar-id").value;
+
+        const status =
+            document.getElementById("status-exemplar").value;
+
+        alterarStatusExemplar(exemplarId, status);
+    });
+});
 function exibirPesquisaLivros() {
     const areaPesquisa = document.getElementById("area-pesquisa");
 
