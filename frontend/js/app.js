@@ -1,4 +1,5 @@
 let livrosCarregados = [];
+let perfilAtual = "";
 
 const selecaoPerfil =
     document.getElementById("selecao-perfil");
@@ -35,6 +36,8 @@ menuBibliotecario.forEach(item => {
 });
 
 acessoEstudante.addEventListener("click", () => {
+    perfilAtual = "estudante";
+
     selecaoPerfil.style.display = "none";
     sistema.style.display = "flex";
 
@@ -58,6 +61,7 @@ acessoEstudante.addEventListener("click", () => {
 });
 
 acessoBibliotecario.addEventListener("click", () => {
+    perfilAtual = 'bibliotecario';
     selecaoPerfil.style.display = "none";
     sistema.style.display = "flex";
 
@@ -98,15 +102,16 @@ function exibirLivros(livros) {
         const card = document.createElement("article");
 
         card.classList.add("livro-card");
-
         card.innerHTML = `
             <h3>${livro.titulo}</h3>
             <p>${livro.autor}</p>
             <p>${livro.categoria}</p>
             <p>${livro.exemplaresDisponiveis} exemplar(es) disponível(is)</p>
-            <button onclick="reservarLivro(${livro.id})">Reservar</button>
-        `;
 
+            ${perfilAtual === "estudante"
+                ? `<button onclick="reservarLivro(${livro.id})">Reservar</button>`
+                : ""}
+`;
         listaLivros.appendChild(card);
     });
 }
