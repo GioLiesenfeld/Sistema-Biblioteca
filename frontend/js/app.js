@@ -674,21 +674,47 @@ const menuReservas = document.getElementById("menu-reservas");
 menuReservas.addEventListener("click", (event) => {
     event.preventDefault();
 
-    console.log("Minhas Reservas foi clicado");
+    document.getElementById("titulo-pagina").textContent =
+        "Minhas Reservas";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Acompanhe e gerencie suas reservas.";
+
+    document.getElementById("area-pesquisa").innerHTML = "";
 
     buscarReservas();
 });
+
+
 const menuEmprestimos = document.getElementById("menu-emprestimos");
 
 menuEmprestimos.addEventListener("click", (event) => {
     event.preventDefault();
 
+    document.getElementById("titulo-pagina").textContent =
+        "Meus Empréstimos";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Consulte seus empréstimos e prazos de devolução.";
+
+    document.getElementById("area-pesquisa").innerHTML = "";
+
     buscarEmprestimos();
 });
+
+
 const menuMultas = document.getElementById("menu-multas");
 
 menuMultas.addEventListener("click", (event) => {
     event.preventDefault();
+
+    document.getElementById("titulo-pagina").textContent =
+        "Minhas Multas";
+
+    document.getElementById("descricao-pagina").textContent =
+        "Consulte as multas vinculadas à sua conta.";
+
+    document.getElementById("area-pesquisa").innerHTML = "";
 
     buscarMultas();
 });
