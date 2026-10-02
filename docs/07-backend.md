@@ -385,14 +385,15 @@ Os campos de senha existentes atualmente não devem ser considerados uma impleme
 
 ---
 
-## 11. Resultado da etapa
+## 11. Resultado da Etapa
 
-Ao final desta fase, o projeto possui uma API funcional integrada ao SQL Server.
+Ao final desta etapa, o projeto possui uma API funcional integrada ao SQL Server e consumida pelo frontend da aplicação.
 
-Os principais fluxos de negócio da biblioteca foram implementados, integrados e testados.
+Os principais fluxos de negócio da biblioteca foram implementados e testados, incluindo cadastro e consulta do acervo, empréstimos, devoluções, renovações, reservas, multas e gerenciamento de exemplares.
 
 A arquitetura atual pode ser resumida como:
 
+```text id="oowh1a"
 HTML / CSS / JavaScript
         ↓
 ASP.NET Core Web API
@@ -404,5 +405,3 @@ Services
 Entity Framework Core
         ↓
 SQL Server
-
-O próximo estágio do projeto é o desenvolvimento do front-end e sua integração com os endpoints existentes.

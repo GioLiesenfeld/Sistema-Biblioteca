@@ -1,491 +1,355 @@
 # Documento de Casos de Uso
 
+| Campo | Valor |
+|-------|-------|
 | **Documento** | Casos de Uso |
-|--------------|--------------|
 | **Projeto** | Sistema de Gerenciamento de Biblioteca Escolar |
 | **Versão** | 1.0 |
 | **Data** | 27/07/2026 |
 | **Autor** | Giovana Liesenfeld |
+| **Status** | Concluído |
 
 ---
 
 ## 1. Introdução
 
-Este documento apresenta os casos de uso do Sistema de Gerenciamento de Biblioteca Escolar. Os casos de uso representam as interações realizadas pelos atores com o sistema, detalhando o fluxo de execução das funcionalidades disponíveis. O objetivo deste documento é representar essas interações, servindo como base para a modelagem, os testes e a implementação do sistema.
+Este documento apresenta os casos de uso da primeira versão funcional do Sistema de Gerenciamento de Biblioteca Escolar.
+
+Os casos de uso representam as principais interações realizadas pelos estudantes e bibliotecários com o sistema e servem como referência para a implementação e os testes das funcionalidades.
 
 ---
 
 ## 2. Atores
 
-Os atores representam as pessoas que interagem diretamente com o Sistema de Gerenciamento de Biblioteca Escolar para executar as funcionalidades disponíveis.
+### 2.1 Estudante
 
-### 2.1 Bibliotecário
+Utiliza o sistema para consultar o acervo, realizar e cancelar reservas, acompanhar seus empréstimos e consultar multas.
 
-Responsável pelo gerenciamento da biblioteca por meio do sistema. Realiza o cadastro e a atualização do acervo, registra empréstimos e devoluções, controla multas e executa as demais atividades administrativas da biblioteca.
+### 2.2 Bibliotecário
 
-### 2.2 Estudante
-
-Utiliza o sistema para consultar o acervo, realizar reservas, acompanhar seus empréstimos e consultar possíveis multas.
+Responsável pelas operações administrativas da biblioteca, incluindo localização de estudantes, cadastro do acervo e gerenciamento de empréstimos, devoluções e renovações.
 
 ---
 
-## 3. Casos de Uso
+# 3. Casos de Uso do Estudante
 
-Esta seção apresenta os casos de uso identificados para o Sistema de Gerenciamento de Biblioteca Escolar, descrevendo as funcionalidades disponíveis para cada ator.
+| Código | Caso de Uso |
+|--------|-------------|
+| UC01 | Consultar Acervo |
+| UC02 | Realizar Reserva |
+| UC03 | Cancelar Reserva |
+| UC04 | Consultar Empréstimos |
+| UC05 | Consultar Multas |
 
-### 3.1 Casos de Uso do Estudante
+---
 
-| Código | Caso de Uso | Ator |
-|---------|-------------|------|
-| UC01 | Realizar Primeiro Acesso | Estudante |
-| UC02 | Fazer Login | Estudante |
-| UC03 | Consultar Acervo | Estudante |
-| UC04 | Realizar Reserva | Estudante |
-| UC05 | Cancelar Reserva | Estudante |
-| UC06 | Consultar Empréstimos | Estudante |
-| UC07 | Consultar Multas | Estudante |
-
-## UC01 – Realizar Primeiro Acesso
+## UC01 – Consultar Acervo
 
 **Ator Principal:** Estudante
-
-**Pré-condições:**
-- O estudante deve possuir um e-mail institucional previamente cadastrado pela escola.
 
 ### Fluxo Principal
 
-1. O estudante solicita o primeiro acesso.
-2. O sistema solicita o e-mail institucional.
-3. O estudante informa o e-mail.
-4. O sistema envia um código de verificação para o e-mail informado.
-5. O estudante informa o código recebido.
-6. O sistema valida o código.
-7. O sistema solicita a criação da senha.
-8. O estudante informa a senha.
-9. O sistema valida a senha.
-10. O sistema ativa a conta do estudante.
-11. O sistema autentica o estudante.
-12. O sistema apresenta a página inicial.
-
-### Fluxo Alternativo A1 – E-mail não encontrado
-
-1. O sistema informa que o e-mail não foi encontrado.
-2. O sistema solicita um novo e-mail.
-3. O estudante informa novamente o e-mail.
-4. O fluxo principal é retomado a partir do passo 4.
-
-### Fluxo Alternativo A2 – Código inválido
-
-1. O estudante informa um código inválido.
-2. O sistema informa que o código é inválido.
-3. O sistema solicita um novo código.
-4. O fluxo principal é retomado a partir do passo 5.
-
-### Fluxo Alternativo A3 – Senha inválida
-
-1. O estudante informa uma senha que não atende aos critérios de segurança.
-2. O sistema informa que a senha é inválida.
-3. O sistema solicita uma nova senha.
-4. O fluxo principal é retomado a partir do passo 8.
+1. O estudante acessa o acervo.
+2. O sistema apresenta os livros cadastrados.
+3. O sistema apresenta título, autor, categoria e quantidade de exemplares disponíveis.
+4. O estudante pode pesquisar livros por título, autor ou categoria.
+5. O sistema apresenta os livros correspondentes à pesquisa.
 
 ### Pós-condições
 
-- A conta do estudante é ativada.
-- O estudante está autenticado no sistema.
+- O estudante visualiza as informações disponíveis no acervo.
 
 ---
 
-## UC02 – Fazer Login
+## UC02 – Realizar Reserva
 
 **Ator Principal:** Estudante
 
-**Pré-condições:**
-- O estudante deve possuir uma conta ativa.
+### Pré-condições
 
-### Fluxo Principal
-
-1. O estudante seleciona a opção **Fazer Login**.
-2. O sistema solicita o e-mail institucional e a senha.
-3. O estudante informa suas credenciais.
-4. O sistema valida as credenciais.
-5. O sistema autentica o estudante.
-6. O sistema apresenta a página inicial.
-
-### Fluxo Alternativo A1 – Credenciais inválidas
-
-1. O sistema informa que as credenciais são inválidas.
-2. O sistema solicita que o estudante informe novamente seus dados.
-3. O fluxo principal é retomado a partir do passo 2.
-
-### Fluxo Alternativo A2 – Recuperação de senha
-
-1. O estudante seleciona **Esqueci minha senha**.
-2. O sistema solicita o e-mail institucional.
-3. O estudante informa o e-mail.
-4. O sistema envia as instruções para redefinição da senha.
-5. O estudante redefine a senha.
-6. O fluxo principal pode ser retomado.
-
-### Pós-condições
-
-- O estudante está autenticado no sistema.
-
----
-
-## UC03 – Consultar Acervo
-
-**Ator Principal:** Estudante
-
-**Pré-condições:**
-- O estudante deve estar autenticado.
-
-### Fluxo Principal
-
-1. O estudante seleciona **Consultar Acervo**.
-2. O sistema apresenta as categorias disponíveis.
-3. O estudante seleciona uma categoria ou realiza uma pesquisa.
-4. O sistema apresenta os livros encontrados.
-5. O sistema apresenta as informações do livro selecionado.
-6. O estudante consulta as informações do livro.
-
-### Pós-condições
-
-- O estudante consulta as informações do acervo.
-
----
-
-## UC04 – Realizar Reserva
-
-**Ator Principal:** Estudante
-
-**Pré-condições:**
-- O estudante deve estar autenticado.
+- O livro deve estar cadastrado.
 
 ### Fluxo Principal
 
 1. O estudante consulta o acervo.
-2. O sistema apresenta os livros encontrados.
-3. O estudante seleciona um livro.
-4. O estudante solicita a reserva.
-5. O sistema verifica a quantidade de estudantes na lista de espera.
-6. O sistema registra a reserva.
-7. O sistema informa que a reserva foi realizada com sucesso.
+2. O estudante seleciona a opção de reservar um livro.
+3. O sistema verifica as regras aplicáveis à reserva.
+4. O sistema registra a reserva.
+5. O sistema determina a posição da reserva.
+6. O sistema informa que a reserva foi realizada com sucesso.
 
-### Fluxo Alternativo A1 – Lista de espera completa
+### Fluxo Alternativo A1 – Reserva duplicada
 
-1. O estudante solicita a reserva.
-2. O sistema verifica que a lista de espera possui cinco estudantes.
-3. O sistema informa que não é possível realizar a reserva.
-4. O caso de uso é encerrado.
+1. O sistema identifica que o estudante já possui uma reserva ativa para o mesmo livro.
+2. O sistema impede a criação de uma nova reserva.
+3. O sistema informa o motivo ao estudante.
+
+### Fluxo Alternativo A2 – Limite de reservas atingido
+
+1. O sistema identifica que o livro já possui cinco reservas ativas.
+2. O sistema impede a nova reserva.
+3. O sistema informa o motivo ao estudante.
 
 ### Pós-condições
 
-- A reserva é registrada na lista de espera.
+- A reserva fica registrada no sistema.
 
 ---
 
-## UC05 – Cancelar Reserva
+## UC03 – Cancelar Reserva
 
 **Ator Principal:** Estudante
 
-**Pré-condições:**
-- O estudante deve estar autenticado.
+### Pré-condições
+
 - O estudante deve possuir uma reserva ativa.
 
 ### Fluxo Principal
 
-1. O estudante seleciona **Consultar Reservas**.
-2. O sistema apresenta as reservas do estudante.
-3. O estudante seleciona a reserva desejada.
-4. O estudante confirma o cancelamento.
-5. O sistema cancela a reserva.
-6. O sistema informa que a reserva foi cancelada com sucesso.
+1. O estudante acessa suas reservas.
+2. O sistema apresenta as reservas existentes.
+3. O estudante solicita o cancelamento.
+4. O sistema cancela a reserva.
+5. O sistema reorganiza as posições posteriores, quando necessário.
+6. O sistema informa que a reserva foi cancelada.
 
 ### Pós-condições
 
-- A reserva é removida da lista de espera.
+- A reserva deixa de estar ativa.
+- O registro da reserva permanece armazenado no sistema.
 
 ---
 
-## UC06 – Consultar Empréstimos
+## UC04 – Consultar Empréstimos
 
 **Ator Principal:** Estudante
 
-**Pré-condições:**
-- O estudante deve estar autenticado.
-
 ### Fluxo Principal
 
-1. O estudante seleciona **Consultar Empréstimos**.
-2. O sistema apresenta os empréstimos em andamento.
-3. O sistema apresenta o histórico de empréstimos.
+1. O estudante acessa a opção "Meus Empréstimos".
+2. O sistema consulta os empréstimos vinculados ao estudante.
+3. O sistema apresenta as informações encontradas.
 
 ### Pós-condições
 
-- O estudante consulta seus empréstimos.
+- O estudante visualiza seus empréstimos.
 
 ---
 
-## UC07 – Consultar Multas
+## UC05 – Consultar Multas
 
 **Ator Principal:** Estudante
 
-**Pré-condições:**
-- O estudante deve estar autenticado.
-
 ### Fluxo Principal
 
-1. O estudante seleciona **Consultar Multas**.
-2. O sistema apresenta as multas registradas.
+1. O estudante acessa a opção "Minhas Multas".
+2. O sistema consulta as multas vinculadas ao estudante.
+3. O sistema apresenta as informações encontradas.
 
 ### Pós-condições
 
-- O estudante consulta suas multas.
+- O estudante visualiza suas multas.
 
-## 3.2 Casos de Uso do Bibliotecário
+---
+
+# 4. Casos de Uso do Bibliotecário
 
 | Código | Caso de Uso |
 |--------|-------------|
-| UC08 | Fazer Login |
-| UC09 | Localizar Estudante |
-| UC10 | Registrar Empréstimo |
-| UC11 | Registrar Devolução |
-| UC12 | Consultar Empréstimos |
-| UC13 | Consultar Multas |
-| UC14 | Alterar Status do Livro |
-| UC15 | Cadastrar Livro |
-| UC16 | Cadastrar Exemplar |
-
-### UC08 – Fazer Login
-
-**Objetivo:** Permitir que o bibliotecário acesse o sistema por meio de suas credenciais institucionais.
-
-**Ator:** Bibliotecário
-
-**Pré-condições:**
-- O bibliotecário deve possuir uma conta cadastrada e ativa.
-
-**Fluxo Principal:**
-
-1. O bibliotecário seleciona a opção **"Fazer Login"**.
-2. O sistema solicita o e-mail institucional e a senha.
-3. O bibliotecário informa suas credenciais.
-4. O sistema valida as credenciais.
-5. O sistema autentica o bibliotecário.
-6. O sistema apresenta a página inicial.
-
-**Fluxo Alternativo 1 – Credenciais inválidas**
-
-4.1. O sistema informa que as credenciais são inválidas.
-4.2. O sistema solicita que o bibliotecário informe as credenciais novamente.
-4.3. O fluxo principal é retomado.
-
-**Fluxo Alternativo 2 – Recuperação de Senha**
-
-2.1. O bibliotecário seleciona a opção **"Esqueci minha senha"**.
-2.2. O sistema solicita o e-mail institucional.
-2.3. O bibliotecário informa o e-mail.
-2.4. O sistema envia as instruções para recuperação da senha.
-2.5. O bibliotecário redefine a senha.
-2.6. O fluxo principal é retomado.
-
-**Pós-condições:**
-- O bibliotecário encontra-se autenticado no sistema.
+| UC06 | Consultar Acervo |
+| UC07 | Localizar Estudante |
+| UC08 | Registrar Empréstimo |
+| UC09 | Registrar Devolução |
+| UC10 | Renovar Empréstimo |
+| UC11 | Cadastrar Livro |
+| UC12 | Cadastrar Exemplar |
+| UC13 | Alterar Status do Exemplar |
 
 ---
 
-### UC09 – Localizar Estudante
+## UC06 – Consultar Acervo
 
-**Objetivo:** Permitir que o bibliotecário localize um estudante para realizar operações relacionadas à biblioteca.
+**Ator Principal:** Bibliotecário
 
-**Ator:** Bibliotecário
+### Fluxo Principal
 
-**Pré-condições:**
-- O bibliotecário deve estar autenticado.
+1. O bibliotecário acessa o acervo.
+2. O sistema apresenta os livros cadastrados e a disponibilidade de exemplares.
+3. O bibliotecário pode pesquisar livros.
 
-**Fluxo Principal:**
+### Pós-condições
 
-1. O bibliotecário identifica o estudante que deseja localizar.
-2. O bibliotecário pesquisa pelo nome ou pela turma do estudante.
-3. O sistema apresenta os estudantes encontrados.
-4. O bibliotecário seleciona o estudante.
-
-**Pós-condições:**
-- O estudante encontra-se selecionado para realização de outras operações.
+- O bibliotecário visualiza as informações do acervo.
 
 ---
 
-### UC10 – Registrar Empréstimo
+## UC07 – Localizar Estudante
 
-**Objetivo:** Registrar o empréstimo de um exemplar para um estudante.
+**Ator Principal:** Bibliotecário
 
-**Ator:** Bibliotecário
+### Fluxo Principal
 
-**Pré-condições:**
-- O bibliotecário deve estar autenticado.
-- O estudante deve estar selecionado.
-- O exemplar deve estar disponível para empréstimo.
+1. O bibliotecário acessa a opção "Localizar Estudante".
+2. O sistema solicita um termo para pesquisa.
+3. O bibliotecário informa o termo.
+4. O sistema consulta os estudantes cadastrados.
+5. O sistema apresenta os estudantes encontrados.
 
-**Fluxo Principal:**
+### Pós-condições
 
-1. O bibliotecário seleciona o estudante.
-2. O sistema apresenta o painel do estudante.
-3. O bibliotecário seleciona a opção **"Registrar Empréstimo"**.
-4. O sistema solicita as informações necessárias para realizar o empréstimo.
-5. O bibliotecário informa os dados do exemplar.
-6. O sistema verifica se o exemplar está disponível.
-7. O sistema calcula a data de devolução.
-8. O sistema registra o empréstimo.
-9. O sistema atualiza o status do exemplar.
-10. O sistema apresenta a confirmação do empréstimo.
-
-**Pós-condições:**
-- O empréstimo é registrado.
-- O exemplar passa para o status **Emprestado**.
+- O bibliotecário obtém as informações do estudante procurado.
 
 ---
 
-### UC11 – Registrar Devolução
+## UC08 – Registrar Empréstimo
 
-**Objetivo:** Registrar a devolução de um exemplar emprestado.
+**Ator Principal:** Bibliotecário
 
-**Ator:** Bibliotecário
+### Pré-condições
 
-**Pré-condições:**
-- O bibliotecário deve estar autenticado.
-- O estudante deve estar selecionado.
-- Deve existir um empréstimo ativo para o exemplar.
+- O estudante deve estar cadastrado.
+- O exemplar deve estar cadastrado.
+- O exemplar deve possuir status "Disponível".
 
-**Fluxo Principal:**
+### Fluxo Principal
 
-1. O bibliotecário seleciona o estudante.
-2. O sistema apresenta o painel do estudante.
-3. O bibliotecário seleciona a opção **"Registrar Devolução"**.
-4. O sistema registra a data da devolução.
-5. O sistema verifica se a devolução ocorreu após a data prevista.
-6. Caso haja atraso, o sistema calcula automaticamente a multa correspondente aos dias em atraso.
-7. O sistema apresenta o valor acumulado da multa, quando houver.
-8. O sistema atualiza o status do exemplar para **Disponível**.
-9. O sistema apresenta a confirmação da devolução.
+1. O bibliotecário acessa a opção "Registrar Empréstimo".
+2. O bibliotecário informa o estudante e o exemplar.
+3. O sistema verifica a disponibilidade do exemplar.
+4. O sistema registra o empréstimo.
+5. O sistema define a data prevista de devolução.
+6. O sistema altera automaticamente o status do exemplar para "Emprestado".
+7. O sistema confirma a operação.
 
-**Pós-condições:**
-- A devolução é registrada.
-- O exemplar passa para o status **Disponível**.
-- Havendo atraso, a multa é registrada e vinculada ao estudante.
+### Pós-condições
+
+- O empréstimo fica registrado.
+- O exemplar passa para o status "Emprestado".
 
 ---
 
-### UC12 – Consultar Empréstimos
+## UC09 – Registrar Devolução
 
-**Objetivo:** Consultar o histórico de empréstimos de um estudante.
+**Ator Principal:** Bibliotecário
 
-**Ator:** Bibliotecário
+### Pré-condições
 
-**Pré-condições:**
-- O bibliotecário deve estar autenticado.
-- O estudante deve estar selecionado.
+- Deve existir um empréstimo ativo.
 
-**Fluxo Principal:**
+### Fluxo Principal
 
-1. O bibliotecário seleciona o estudante.
-2. O sistema apresenta o painel do estudante.
-3. O bibliotecário seleciona a opção **"Consultar Empréstimos"**.
-4. O sistema apresenta o histórico de empréstimos do estudante.
+1. O bibliotecário acessa a opção "Registrar Devolução".
+2. O bibliotecário informa o empréstimo.
+3. O sistema registra a devolução.
+4. O sistema verifica se houve atraso.
+5. Havendo atraso, o sistema calcula e registra a multa correspondente.
+6. O sistema altera o status do exemplar para "Disponível".
+7. O sistema confirma a operação.
 
-**Pós-condições:**
-- O histórico de empréstimos é apresentado.
+### Pós-condições
 
----
-
-### UC13 – Consultar Multas
-
-**Objetivo:** Consultar o histórico de multas de um estudante.
-
-**Ator:** Bibliotecário
-
-**Pré-condições:**
-- O bibliotecário deve estar autenticado.
-- O estudante deve estar selecionado.
-
-**Fluxo Principal:**
-
-1. O bibliotecário seleciona o estudante.
-2. O sistema apresenta o painel do estudante.
-3. O bibliotecário seleciona a opção **"Consultar Multas"**.
-4. O sistema apresenta o histórico de multas do estudante.
-
-**Pós-condições:**
-- O histórico de multas e os respectivos valores acumulados são apresentados ao bibliotecário.
+- O empréstimo é encerrado.
+- O exemplar volta para o status "Disponível".
+- Havendo atraso, a multa fica registrada.
 
 ---
 
-### UC14 – Alterar Status do Livro
+## UC10 – Renovar Empréstimo
 
-**Objetivo:** Alterar o status de um livro cadastrado.
+**Ator Principal:** Bibliotecário
 
-**Ator:** Bibliotecário
+### Pré-condições
 
-**Pré-condições:**
-- O bibliotecário deve estar autenticado.
-- O livro deve estar cadastrado.
+- O empréstimo deve estar ativo.
 
-**Fluxo Principal:**
+### Fluxo Principal
 
-1. O bibliotecário seleciona o livro.
-2. O sistema apresenta os dados cadastrais do livro.
-3. O bibliotecário seleciona a opção **"Alterar Status do Livro"**.
-4. O sistema apresenta as opções de status.
-5. O bibliotecário seleciona o novo status.
-6. O sistema atualiza o status do livro.
+1. O bibliotecário acessa a opção "Renovar Empréstimo".
+2. O bibliotecário informa o empréstimo.
+3. O sistema verifica se o empréstimo está ativo.
+4. O sistema acrescenta 7 dias à data prevista de devolução.
+5. O sistema registra a alteração.
+6. O sistema confirma a renovação.
 
-**Pós-condições:**
-- O status do livro é atualizado.
+### Pós-condições
 
----
-
-### UC15 – Cadastrar Livro
-
-**Objetivo:** Cadastrar um novo livro no acervo da biblioteca.
-
-**Ator:** Bibliotecário
-
-**Pré-condições:**
-- O bibliotecário deve estar autenticado.
-
-**Fluxo Principal:**
-
-1. O bibliotecário acessa a página inicial do sistema.
-2. O bibliotecário seleciona a opção **"Cadastrar Livro"**.
-3. O sistema solicita os dados obrigatórios do livro.
-4. O bibliotecário informa os dados.
-5. O sistema registra o livro.
-6. O sistema atualiza o acervo.
-
-**Pós-condições:**
-- O livro é cadastrado no sistema.
+- A data prevista de devolução é atualizada.
 
 ---
 
-### UC16 – Cadastrar Exemplar
+## UC11 – Cadastrar Livro
 
-**Objetivo:** Cadastrar novos exemplares de um livro existente.
+**Ator Principal:** Bibliotecário
 
-**Ator:** Bibliotecário
+### Fluxo Principal
 
-**Pré-condições:**
-- O bibliotecário deve estar autenticado.
+1. O bibliotecário acessa a opção "Cadastrar Livro".
+2. O sistema solicita os dados do livro.
+3. O bibliotecário informa título, autor, ISBN e categoria.
+4. O sistema registra o livro.
+5. O sistema confirma o cadastro.
+
+### Pós-condições
+
+- O livro fica cadastrado no acervo.
+
+---
+
+## UC12 – Cadastrar Exemplar
+
+**Ator Principal:** Bibliotecário
+
+### Pré-condições
+
 - O livro deve estar previamente cadastrado.
 
-**Fluxo Principal:**
+### Fluxo Principal
 
-1. O bibliotecário acessa a página inicial do sistema.
-2. O bibliotecário seleciona um livro previamente cadastrado.
-3. O sistema apresenta os dados do livro.
-4. O bibliotecário seleciona a opção **"Cadastrar Exemplar"**.
-5. O sistema solicita a quantidade de exemplares.
-6. O bibliotecário informa a quantidade.
-7. O sistema gera um código de identificação para cada exemplar cadastrado.
-8. O sistema conclui o cadastro.
+1. O bibliotecário acessa a opção "Cadastrar Exemplar".
+2. O bibliotecário informa o código de identificação do exemplar e o ID do livro.
+3. O sistema verifica o livro informado.
+4. O sistema registra o exemplar vinculado ao livro.
+5. O exemplar recebe o status inicial "Disponível".
+6. O sistema confirma o cadastro.
 
-**Pós-condições:**
-- Os exemplares são cadastrados e vinculados ao livro.
+### Pós-condições
+
+- O exemplar fica cadastrado e vinculado ao livro.
+- A disponibilidade do livro é atualizada no acervo.
+
+---
+
+## UC13 – Alterar Status do Exemplar
+
+**Ator Principal:** Bibliotecário
+
+### Pré-condições
+
+- O exemplar deve estar cadastrado.
+
+### Fluxo Principal
+
+1. O bibliotecário acessa a opção "Alterar Status do Exemplar".
+2. O bibliotecário informa o exemplar.
+3. O bibliotecário seleciona "Disponível" ou "Indisponível".
+4. O sistema atualiza o status.
+5. O sistema confirma a alteração.
+
+### Pós-condições
+
+- O status do exemplar é atualizado.
+- A quantidade de exemplares disponíveis apresentada no acervo é atualizada.
+
+---
+
+# 5. Funcionalidades Futuras
+
+Os seguintes casos de uso foram identificados durante o planejamento, mas não fazem parte da primeira versão funcional:
+
+- Realizar primeiro acesso
+- Fazer login como estudante
+- Fazer login como bibliotecário
+- Recuperar senha
+- Integração automática com o sistema acadêmico
+
+Esses casos poderão ser incorporados em versões futuras do sistema.

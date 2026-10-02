@@ -1,23 +1,23 @@
 # Visão do Produto
 
 | Campo | Valor |
-|--------|-------|
+|-------|-------|
 | **Projeto** | Sistema de Gerenciamento de Biblioteca |
 | **Documento** | Visão do Produto |
 | **Versão** | 1.0 |
 | **Autor** | Giovana Liesenfeld |
 | **Data** | 24/07/2026 |
-| **Status** | Em elaboração |
+| **Status** | Concluído |
 
 ## 1. Introdução
 
-Este documento apresenta a visão geral do Sistema de Gerenciamento de Biblioteca. Seu objetivo é descrever o contexto do projeto, o problema identificado, o cliente e o objetivo do produto, fornecendo uma visão inicial para todos os envolvidos no desenvolvimento do sistema.
+Este documento apresenta a visão geral do Sistema de Gerenciamento de Biblioteca, descrevendo o contexto do projeto, o problema identificado, o cliente e o objetivo do produto.
 
 ## 2. Contexto
 
-Este documento apresenta a visão do Sistema de Gerenciamento de Biblioteca. Seu objetivo é descrever o contexto do projeto, o problema que motivou seu desenvolvimento, o cliente e o objetivo do produto, fornecendo uma visão geral para todas as partes interessadas.
+A biblioteca escolar realiza atividades relacionadas ao controle do acervo, empréstimos, devoluções e demais operações necessárias para o atendimento aos estudantes.
 
-Diante desse cenário, a gestão escolar identificou a necessidade de informatizar o gerenciamento da biblioteca, buscando maior organização, segurança e eficiência no controle das informações.
+Diante da necessidade de tornar esses processos mais organizados e eficientes, a gestão escolar identificou a necessidade de informatizar o gerenciamento da biblioteca.
 
 ## 3. Cliente
 

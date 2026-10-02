@@ -1,34 +1,28 @@
 # Arquitetura do Sistema
 
-## Objetivo
+## 1. Objetivo
 
-Este documento apresenta a arquitetura definida para o Sistema de gerenciamento de Biblioteca Escolar, descrevdendo as principais tecnologias utilizadas e a forma como os componentes da aplicação se comunicam.
+Este documento apresenta a arquitetura utilizada no Sistema de Gerenciamento de Biblioteca Escolar, descrevendo as principais tecnologias e a forma como os componentes da aplicação se comunicam.
 
-## Arquitetura
+---
 
-O sistema será desenvolvido como uma aplicação web, com separação entre front-end, back-end e banco de dados.
+## 2. Arquitetura
 
-A comunicação entre o front-end e o back-end será realizada por meio de uma API REST.
+O sistema foi desenvolvido como uma aplicação web com separação entre **frontend, backend e banco de dados**.
 
-A arquitetura seguirá o seguinte fluxo:
+O frontend é responsável pela interface e interação com o usuário, enquanto o backend disponibiliza uma API responsável pelo processamento das requisições e aplicação das regras de negócio.
 
-Front-end → API REST → Services → Entity Framework Core → Banco de Dados
+A persistência das informações é realizada em um banco de dados relacional.
 
-## Tecnologias
+O fluxo principal da aplicação é:
 
-- **Front-end:** HTML, CSS e Javascript
-- **Back-end:** C# com ASP.NET Core Web API
-- **ORM:** Ebtity Framework Core
-- **Banco de Dados:** SQL Server
-- **Versionamento:** Git e GitHub
-
-## 4. Organização do Back-end
-
-O back-end será organizado inicialmente nas seguintes partes:
-
-- **Controllers:** recebem as requisições da API e retornam as respostas.
-- **Services:** concentram as regras de negócio da aplicação.
-- **Models:** representam as principais entidades do sistema.
-- **Data:** contém a configuração de acesso e persistência dos dados.
-
-Essa organização busca manter as responsabilidades do sistema separadas e facilitar a manutenção e evolução do projeto.
+```text id="swnljp"
+Frontend
+   ↓
+API REST / Controllers
+   ↓
+Services
+   ↓
+Entity Framework Core
+   ↓
+SQL Server

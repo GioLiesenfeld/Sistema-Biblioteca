@@ -1,30 +1,34 @@
 # Especificação de Requisitos
 
 | Campo | Valor |
-|--------|-------|
+|-------|-------|
 | Projeto | Sistema de Gerenciamento de Biblioteca |
 | Documento | Especificação de Requisitos |
 | Versão | 1.0 |
 | Autor | Giovana Liesenfeld |
-| Status | Em elaboração |
+| Status | Concluído |
 
 ---
 
 # 1. Introdução
 
-Este documento apresenta a especificação de requisitos do Sistema de Gerenciamento de Biblioteca. Seu objetivo é descrever os requisitos funcionais e não funcionais que o sistema deve possuir para atender às necessidades das partes interessadas.
+Este documento apresenta a especificação de requisitos do Sistema de Gerenciamento de Biblioteca. Seu objetivo é descrever os requisitos funcionais, regras de negócio e requisitos não funcionais considerados na primeira versão funcional do sistema.
 
 ---
 
 # 2. Objetivo
 
-O objetivo do Sistema de Gerenciamento de Biblioteca é informatizar as atividades relacionadas à biblioteca escolar, como cadastros, consultas, empréstimos, devoluções e gerenciamento do acervo, proporcionando maior organização, agilidade e eficiência na administração da biblioteca.
+O objetivo do Sistema de Gerenciamento de Biblioteca é informatizar atividades relacionadas à biblioteca escolar, permitindo o gerenciamento do acervo, empréstimos, devoluções, renovações, reservas e multas.
 
 ---
 
 # 3. Escopo
 
-O Sistema de Gerenciamento de Biblioteca informatiza os processos relacionados ao acervo de livros da escola. Seu escopo contempla o cadastro de livros, exemplares e categorias, a consulta ao sistema acadêmico para identificação dos estudantes matriculados, a consulta e disponibilidade do acervo, o controle de empréstimos, devoluções, reservas, listas de espera e multas, reunindo as funcionalidades necessárias para a administração da biblioteca escolar.
+A primeira versão do sistema contempla o gerenciamento de livros e exemplares, consulta ao acervo, localização de estudantes, controle de empréstimos, devoluções e renovações, reservas e consulta de multas.
+
+O sistema possui interfaces distintas para estudantes e bibliotecários, que consomem uma API responsável pelas regras de negócio e pela comunicação com o banco de dados.
+
+Funcionalidades de autenticação e recuperação de senha estão previstas como evolução futura.
 
 ---
 
@@ -32,170 +36,170 @@ O Sistema de Gerenciamento de Biblioteca informatiza os processos relacionados a
 
 ## 4.1 Gestão do Acervo
 
-**RF01** – O sistema deve permitir o cadastro de livros, registrando informações como título, autor, editora, ISBN, categoria e ano de publicação.
+**RF01** – O sistema deve permitir ao bibliotecário cadastrar livros contendo título, autor, ISBN e categoria.
 
-**RF02** – O sistema deve permitir o cadastro de exemplares vinculados a um livro previamente cadastrado. O usuário informa a quantidade de exemplares adquiridos, e o sistema gera automaticamente um código único de identificação para cada exemplar.
+**RF02** – O sistema deve permitir ao bibliotecário cadastrar exemplares vinculados a livros previamente cadastrados.
 
-**RF11** – O sistema deve permitir à bibliotecária cadastrar, editar, consultar e inativar as categorias utilizadas para classificar os livros do acervo.
+**RF03** – O sistema deve permitir consultar os livros existentes no acervo.
+
+**RF04** – O sistema deve informar a quantidade de exemplares disponíveis de cada livro.
+
+**RF05** – O sistema deve permitir ao bibliotecário alterar manualmente o status de um exemplar entre Disponível e Indisponível.
 
 ---
 
 ## 4.2 Gestão de Empréstimos
 
-**RF03** – O sistema deve permitir registrar o empréstimo de exemplares para estudantes matriculados, registrando a data do empréstimo e definindo automaticamente a data prevista para devolução.
+**RF06** – O sistema deve permitir ao bibliotecário registrar o empréstimo de um exemplar para um estudante.
 
-**RF04** – O sistema deve permitir renovar empréstimos de exemplares.
+**RF07** – O sistema deve definir automaticamente a data prevista de devolução no momento do empréstimo.
 
-**RF05** – O sistema deve permitir registrar a devolução de exemplares, encerrando o respectivo empréstimo.
+**RF08** – O sistema deve permitir ao bibliotecário registrar a devolução de um empréstimo.
 
-**RF06** – O sistema deve calcular automaticamente a multa gerada pelo atraso na devolução de exemplares.
+**RF09** – O sistema deve permitir ao bibliotecário renovar um empréstimo ativo.
 
----
+**RF10** – O sistema deve permitir ao estudante consultar seus empréstimos.
 
-## 4.3 Consulta e Reserva
-
-**RF07** – O sistema deve permitir que os estudantes consultem o catálogo de livros da biblioteca.
-
-**RF08** – O sistema deve permitir que os estudantes reservem exemplares da biblioteca.
-
-**RF09** – O sistema deve permitir que estudantes ingressem em listas de espera para exemplares indisponíveis.
-
-**RF10** – O sistema deve consultar a lista de estudantes matriculados no sistema acadêmico da escola, permitindo utilizar essas informações para a realização de empréstimos, reservas e demais operações da biblioteca.
+**RF11** – O sistema deve calcular multa quando houver devolução realizada após a data prevista.
 
 ---
 
-## 4.4 Gestão de Usuários
+## 4.3 Reservas
 
-**RF12** – O sistema deve permitir que estudantes matriculados realizem o primeiro acesso, vinculando seu e-mail e cadastrando uma senha para utilização do sistema.
+**RF12** – O sistema deve permitir ao estudante reservar um livro.
 
-**RF13** – O sistema deve permitir que usuários autenticados realizem login utilizando suas credenciais.
+**RF13** – O sistema deve permitir ao estudante consultar suas reservas.
+
+**RF14** – O sistema deve permitir ao estudante cancelar uma reserva ativa.
+
+**RF15** – O sistema deve controlar a posição das reservas de um livro.
+
+**RF16** – O sistema deve impedir que o mesmo estudante possua mais de uma reserva ativa para o mesmo livro.
+
+---
+
+## 4.4 Estudantes
+
+**RF17** – O sistema deve permitir ao bibliotecário localizar estudantes cadastrados.
+
+---
+
+## 4.5 Multas
+
+**RF18** – O sistema deve permitir ao estudante consultar suas multas.
+
+**RF19** – O sistema deve registrar multa quando uma devolução em atraso gerar penalidade.
+
+---
 
 # 5. Regras de Negócio
 
 ## 5.1 Empréstimos
 
-**RN01** – Somente exemplares disponíveis podem ser emprestados.
+**RN01** – Somente exemplares com status Disponível podem ser emprestados.
 
-**RN02** – A renovação do empréstimo é opcional.
+**RN02** – O prazo padrão de um empréstimo é de 7 dias.
 
-**RN03** – A renovação do empréstimo poderá ser realizada após 7 dias da data do empréstimo.
+**RN03** – Ao registrar um empréstimo, o exemplar deve assumir automaticamente o status Emprestado.
 
-**RN04** – Multas são aplicadas quando ocorre atraso na devolução de um exemplar.
+**RN04** – Somente empréstimos ativos podem ser renovados.
 
-**RN05** – O valor da multa é acrescido diariamente enquanto houver atraso na devolução.
+**RN05** – Cada renovação acrescenta 7 dias à data prevista de devolução atual.
 
-**RN06** – Cada empréstimo poderá ser renovado apenas uma vez.
+**RN06** – Ao registrar uma devolução, o empréstimo deve ser encerrado.
 
-**RN07** – O prazo padrão para devolução de um exemplar é de 15 dias a partir da data do empréstimo.
+**RN07** – Após a devolução, o exemplar deve voltar automaticamente para o status Disponível.
 
-**RN08** – Em caso de perda ou dano de um exemplar, o estudante deverá repor a obra à biblioteca.
+**RN08** – Quando houver atraso na devolução, deve ser gerada multa correspondente aos dias de atraso.
 
-**RN09** – Cada estudante poderá possuir apenas um empréstimo ativo por vez.
-
-**RN15** – Estudantes com multas pendentes não poderão realizar novos empréstimos.
-
-**RN16** – Não existe limite máximo para o valor acumulado das multas.
-
-**RN17** – Todo exemplar deverá ser cadastrado antes de estar disponível para empréstimo.
-
-**RN18** – A devolução de exemplares deverá ocorrer conforme o cronograma estabelecido pela biblioteca.
-
-**RN19** – Após a realização do empréstimo ou da renovação, o estudante permanecerá responsável pelo exemplar até a sua devolução.
-
-**RN29** – O histórico de empréstimos e as pendências de estudantes deverão permanecer registrados no sistema, mesmo após o encerramento da matrícula.
-
-**RN30** – As pendências de empréstimos e multas dos estudantes deverão permanecer disponíveis para consulta pela bibliotecária.
-
-**RN31** – O histórico operacional de empréstimos deverá permanecer disponível no sistema por 2 anos. Após esse período, os registros poderão ser arquivados e posteriormente excluídos pelo sistema.
+**RN09** – O valor da multa é de R$ 1,00 por dia de atraso.
 
 ---
 
 ## 5.2 Reservas
 
-**RN10** – Quando um exemplar estiver indisponível, os estudantes poderão ingressar em uma lista de espera.
+**RN10** – Um estudante não pode possuir duas reservas ativas para o mesmo livro.
 
-**RN11** – Cada lista de espera poderá conter, no máximo, cinco estudantes.
+**RN11** – Cada livro pode possuir no máximo cinco reservas ativas.
 
-**RN12** – Após a devolução de um exemplar reservado, ele ficará disponível na estante de livros reservados para o primeiro estudante da lista de espera.
+**RN12** – A posição de uma nova reserva deve ser definida de acordo com a quantidade de reservas ativas existentes para o livro.
 
-**RN13** – O primeiro estudante da lista de espera terá prioridade para decidir se deseja retirar o exemplar reservado.
+**RN13** – Somente reservas ativas podem ser canceladas.
 
-**RN14** – Caso o primeiro estudante da lista desista da reserva, sua solicitação será cancelada e o exemplar ficará disponível para o próximo estudante da lista.
+**RN14** – Quando uma reserva é cancelada, as posições posteriores devem ser atualizadas.
 
-**RN23** – Quando um exemplar reservado for devolvido, ele ficará disponível para retirada pelo primeiro estudante da lista de espera durante a semana destinada à retirada.
-
-**RN24** – Caso o estudante prioritário não retire o exemplar dentro da semana prevista, sua reserva será cancelada e ele será reposicionado no final da lista de espera.
-
-**RN25** – Após o reposicionamento do estudante, a prioridade de retirada será concedida ao próximo estudante da lista de espera.
+**RN15** – Reservas canceladas devem permanecer registradas para preservação do histórico.
 
 ---
 
-## 5.3 Usuários
+## 5.3 Acervo
 
-**RN21** – A bibliotecária será a única responsável por realizar operações de cadastro, empréstimo, renovação, devolução e demais movimentações do acervo.
+**RN16** – Um livro pode existir no sistema mesmo sem possuir exemplares cadastrados.
 
-**RN22** – Os demais usuários da escola terão acesso apenas à consulta do catálogo, à solicitação de reservas e ao ingresso em listas de espera.
+**RN17** – Cada exemplar deve estar vinculado a um livro.
 
-**RN26** – Os dados dos estudantes serão obtidos automaticamente a partir do sistema acadêmico da escola.
+**RN18** – Um livro pode possuir vários exemplares.
 
-**RN27** – Somente estudantes com matrícula ativa poderão realizar empréstimos, reservas e ingressar em listas de espera.
+**RN19** – Exemplares recém-cadastrados devem possuir status Disponível.
+
+**RN20** – A alteração manual de status permite apenas os estados Disponível e Indisponível.
+
+**RN21** – O status Emprestado é controlado automaticamente pelo fluxo de empréstimos e devoluções.
 
 ---
 
-## 5.4 Acervo
+## 5.4 Perfis
 
-**RN28** – Livros e exemplares poderão ser inativados, mas não poderão ser excluídos do sistema, a fim de preservar a consistência do histórico de empréstimos e demais registros.
+**RN22** – Operações de cadastro e movimentação do acervo são destinadas ao perfil de bibliotecário.
 
-**RN32** – Todo livro deverá estar associado a uma categoria para facilitar sua organização e consulta no catálogo.
+**RN23** – Operações de reserva e consulta de informações pessoais são destinadas ao perfil de estudante.
+
+**RN24** – Tanto estudantes quanto bibliotecários podem consultar o acervo.
 
 ---
 
 # 6. Requisitos Não Funcionais
 
-## 6.1 Compatibilidade
+## 6.1 Usabilidade
 
-**RNF01** – O sistema deverá ser acessível por meio dos principais navegadores web modernos (Google Chrome, Microsoft Edge e Mozilla Firefox).
+**RNF01** – O sistema deve apresentar uma interface simples e de fácil utilização.
 
-**RNF02** – O sistema deverá possuir interface responsiva, adaptando-se corretamente a computadores, tablets e smartphones.
-
----
-
-## 6.2 Segurança
-
-**RNF03** – O sistema deverá exigir autenticação para acesso às funcionalidades restritas.
-
-**RNF04** – Os estudantes deverão autenticar-se utilizando sua matrícula e a senha cadastrada no sistema.
-
-**RNF05** – O sistema deverá permitir a recuperação de senha por meio do e-mail cadastrado pelo estudante.
-
-**RNF06** – O sistema deverá armazenar as senhas dos usuários de forma segura, utilizando algoritmos de hash, não permitindo o armazenamento das senhas em texto puro.
+**RNF02** – As funcionalidades devem estar organizadas de acordo com o perfil do usuário.
 
 ---
 
-## 6.3 Disponibilidade
+## 6.2 Compatibilidade
 
-**RNF07** – O sistema deverá permanecer disponível para acesso dos usuários durante 24 horas por dia, 7 dias por semana, exceto em períodos programados de manutenção.
-
----
-
-## 6.4 Usabilidade
-
-**RNF08** – O sistema deverá apresentar uma interface simples, intuitiva e de fácil utilização, adequada para estudantes do 6º ano do Ensino Fundamental ao 3º ano do Ensino Médio e para a bibliotecária.
+**RNF03** – O frontend deve ser executável em navegadores web modernos.
 
 ---
 
-## 6.5 Desempenho
+## 6.3 Arquitetura
 
-**RNF09** – O sistema deverá responder às operações de consulta e pesquisa em até 2 segundos, em condições normais de uso.
+**RNF04** – O frontend deve consumir as funcionalidades do sistema por meio de uma API HTTP.
 
----
+**RNF05** – O backend deve separar as responsabilidades de acesso HTTP, regras de negócio e persistência de dados.
 
-## 6.6 Confiabilidade
-
-**RNF10** – O sistema deverá realizar backups periódicos dos dados, permitindo sua recuperação em caso de falhas.
+**RNF06** – Os dados da aplicação devem ser armazenados em banco de dados relacional.
 
 ---
 
-## 6.7 Acessibilidade
+## 6.4 Manutenibilidade
 
-**RNF11** – O sistema deverá seguir boas práticas de acessibilidade, proporcionando navegação clara, contraste adequado e compatibilidade com tecnologias assistivas sempre que possível.
+**RNF07** – O código deve possuir organização que permita a evolução das funcionalidades do sistema.
+
+---
+
+# 7. Funcionalidades Planejadas para Versões Futuras
+
+As seguintes funcionalidades pertencem à evolução planejada do sistema e não fazem parte da primeira versão funcional:
+
+- Autenticação de estudantes e bibliotecários
+- Primeiro acesso do estudante
+- Recuperação de senha
+- Armazenamento seguro de senhas utilizando hash
+- Integração automática com o sistema acadêmico da escola
+- Gerenciamento completo de categorias
+- Notificações relacionadas às reservas
+- Evolução das regras de lista de espera
+- Melhorias de acessibilidade e segurança
