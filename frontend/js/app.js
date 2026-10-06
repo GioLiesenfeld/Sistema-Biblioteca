@@ -103,10 +103,16 @@ function exibirLivros(livros) {
 
         card.classList.add("livro-card");
         card.innerHTML = `
-            <h3>${livro.titulo}</h3>
-            <p>${livro.autor}</p>
-            <p>${livro.categoria}</p>
-            <p>${livro.exemplaresDisponiveis} exemplar(es) disponível(is)</p>
+    ${livro.imagemCapa
+                ? `<img src="${livro.imagemCapa}" 
+                alt="Capa de ${livro.titulo}" 
+                class="livro-capa">`
+                : ""}
+
+                <h3>${livro.titulo}</h3>
+                <p>${livro.autor}</p>
+                <p>${livro.categoria}</p>
+                <p>${livro.exemplaresDisponiveis} exemplar(es) disponível(is)</p>
 
             ${perfilAtual === "estudante"
                 ? `<button onclick="reservarLivro(${livro.id})">Reservar</button>`
