@@ -1,8 +1,36 @@
 # 📚 Sistema de Gerenciamento de Biblioteca Escolar
 
-Sistema web desenvolvido para simular o gerenciamento de uma biblioteca escolar, permitindo o controle de livros, exemplares, estudantes, empréstimos, reservas, devoluções, renovações e multas.
+Sistema web full stack desenvolvido para simular o gerenciamento de uma biblioteca escolar, permitindo o controle de livros, exemplares, estudantes, empréstimos, reservas, devoluções, renovações e multas.
 
 O projeto foi desenvolvido como parte do meu portfólio durante a graduação em Análise e Desenvolvimento de Sistemas, com o objetivo de aplicar na prática conceitos de desenvolvimento web, APIs REST, Programação Orientada a Objetos, banco de dados relacional e regras de negócio.
+
+---
+
+## 🖥️ Demonstração
+
+### Seleção de perfil
+
+O sistema possui interfaces distintas para estudantes e bibliotecários.
+
+![Seleção de perfil](images/screenshots/tela-selecao-perfil.png)
+
+### Acervo do estudante
+
+O estudante pode consultar o catálogo, visualizar a disponibilidade dos exemplares e realizar reservas.
+
+![Acervo do estudante](images/screenshots/acervo-estudante.png)
+
+### Gerenciamento de reservas
+
+As reservas possuem controle de status e posição na fila, além da possibilidade de cancelamento.
+
+![Minhas reservas](images/screenshots/minhas-reservas.png)
+
+### Área do bibliotecário
+
+O bibliotecário possui acesso às operações administrativas da biblioteca, como registro de empréstimos, devoluções, renovações e gerenciamento do acervo.
+
+![Registrar empréstimo](images/screenshots/registrar-emprestimo.png)
 
 ---
 
@@ -54,7 +82,7 @@ Entre as regras implementadas estão:
 - A devolução torna o exemplar disponível novamente
 - Atrasos podem gerar multa de R$ 1,00 por dia
 - Um estudante não pode manter duas reservas ativas para o mesmo livro
-- Cada livro possui limite de reservas ativas
+- Cada livro possui limite de 5 reservas ativas
 - Livros e exemplares são entidades independentes, permitindo que um livro possua múltiplos exemplares
 
 ---
@@ -78,6 +106,7 @@ Entre as regras implementadas estão:
 - HTML
 - CSS
 - JavaScript
+- Fetch API
 
 ### Versionamento
 
@@ -88,7 +117,7 @@ Entre as regras implementadas estão:
 
 ## 🏗️ Arquitetura
 
-O projeto utiliza uma arquitetura organizada em camadas de responsabilidade.
+O projeto utiliza uma arquitetura organizada em responsabilidades, separando a interface, os endpoints da API, as regras de negócio e o acesso aos dados.
 
 ```text
 Frontend
@@ -100,3 +129,122 @@ Services
 Entity Framework Core
    ↓
 SQL Server
+```
+
+### Backend
+
+```text
+Biblioteca.Api/
+├── Controllers/
+├── Data/
+├── DTOs/
+├── Exceptions/
+├── Migrations/
+├── Models/
+└── Services/
+```
+
+A comunicação entre o frontend e o backend é realizada por meio de requisições HTTP utilizando a Fetch API.
+
+---
+
+## 🗃️ Banco de Dados
+
+O banco de dados relacional contém entidades responsáveis por representar os principais elementos do domínio da biblioteca:
+
+- Estudantes
+- Turmas
+- Bibliotecários
+- Livros
+- Exemplares
+- Empréstimos
+- Reservas
+- Multas
+
+O Entity Framework Core é utilizado para realizar o mapeamento entre as entidades da aplicação e o SQL Server, além do gerenciamento das alterações do banco por meio de migrations.
+
+---
+
+## 🔗 Principais endpoints
+
+### Livros
+
+```text
+GET  /api/livros
+POST /api/livros
+```
+
+### Exemplares
+
+```text
+POST /api/exemplares
+PUT  /api/exemplares/{id}/status
+```
+
+### Empréstimos
+
+```text
+POST /api/emprestimos
+POST /api/emprestimos/{id}/devolucao
+POST /api/emprestimos/{id}/renovacao
+GET  /api/emprestimos/estudante/{id}
+```
+
+### Reservas
+
+```text
+POST /api/reservas
+POST /api/reservas/{id}/cancelamento
+GET  /api/reservas/estudante/{id}
+```
+
+### Multas
+
+```text
+GET /api/multas/estudante/{id}
+```
+
+### Estudantes
+
+```text
+GET /api/estudantes/busca?termo=...
+```
+
+---
+
+## 📂 Documentação
+
+O repositório também contém a documentação produzida durante o desenvolvimento do projeto, incluindo:
+
+- Visão do produto
+- Requisitos
+- Casos de uso
+- Diagrama de casos de uso
+- Modelo de domínio
+- Arquitetura
+- Backend
+- Frontend
+
+Os documentos estão disponíveis na pasta [`docs`](docs/).
+
+---
+
+## 🚀 Próximos Passos
+
+Algumas melhorias planejadas para versões futuras:
+
+- Implementação de autenticação
+- Identificação automática do usuário autenticado
+- Armazenamento seguro de senhas
+- Melhorias adicionais de responsividade
+- Evolução da interface e experiência do usuário
+
+---
+
+## 📌 Status do Projeto
+
+**Versão funcional concluída.**
+
+As principais funcionalidades previstas para estudantes e bibliotecários estão implementadas e integradas ao banco de dados.
+
+O projeto continua aberto para melhorias e evolução.
