@@ -15,4 +15,5 @@ public class CriarLivroDto
 
     [Required(ErrorMessage = "A categoria é obrigatória.")]
     public string Categoria { get; set; } = string.Empty;
+    public string? ImagemCapa { get; set; }
 }

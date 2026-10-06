@@ -24,6 +24,7 @@ public class LivroService
                 Autor = l.Autor,
                 Isbn = l.Isbn,
                 Categoria = l.Categoria,
+                ImagemCapa = l.ImagemCapa,
                 ExemplaresDisponiveis = l.Exemplares
                     .Count(e => e.status == "Disponível")
             })
@@ -32,11 +33,14 @@ public class LivroService
     public async Task CadastrarLivroAsync(CriarLivroDto dto)
     {
         var livro = new Livro
-        {
+        { 
+            
             Titulo = dto.Titulo,
             Autor = dto.Autor,
             Isbn = dto.Isbn,
-            Categoria = dto.Categoria
+            Categoria = dto.Categoria,
+            ImagemCapa = dto.ImagemCapa
+    
         };
 
         _context.Livros.Add(livro);

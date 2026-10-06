@@ -8,6 +8,8 @@ public class Livro
     public required string Autor { get; set; }
     public required string Isbn { get; set; }
     public required string Categoria { get; set; }
+    public string? ImagemCapa { get; set; }
+
 
 
 

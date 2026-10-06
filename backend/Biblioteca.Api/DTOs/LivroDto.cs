@@ -7,5 +7,6 @@ public class LivroDto
     public string Autor { get; set; } = string.Empty;
     public string Isbn { get; set; } = string.Empty;
     public string Categoria { get; set; } = string.Empty;
+    public string? ImagemCapa { get; set; }
     public int ExemplaresDisponiveis { get; set; }
 }
