@@ -164,6 +164,80 @@ O banco de dados relacional contém entidades responsáveis por representar os p
 O Entity Framework Core é utilizado para realizar o mapeamento entre as entidades da aplicação e o SQL Server, além do gerenciamento das alterações do banco por meio de migrations.
 
 ---
+## ▶️ Como executar o projeto
+
+### Pré-requisitos
+
+Para executar o projeto localmente, é necessário ter instalado:
+
+- .NET SDK
+- SQL Server
+- SQL Server Management Studio (opcional)
+- Visual Studio Code ou outra IDE de sua preferência
+- Extensão Live Server para executar o frontend
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/GioLiesenfeld/Sistema-Biblioteca.git
+cd Sistema-Biblioteca
+```
+
+### 2. Configure o banco de dados
+
+A aplicação utiliza SQL Server. A string de conexão padrão está configurada em:
+
+```text
+backend/Biblioteca.Api/appsettings.json
+```
+
+Configuração utilizada no desenvolvimento:
+
+```text
+Server=localhost;Database=BibliotecaDb;Trusted_Connection=True;TrustServerCertificate=True;
+```
+
+Caso necessário, altere a string de conexão de acordo com a sua instalação do SQL Server.
+
+### 3. Aplique as migrations
+
+Acesse a pasta da API:
+
+```bash
+cd backend/Biblioteca.Api
+```
+
+Execute:
+
+```bash
+dotnet ef database update
+```
+
+### 4. Execute o backend
+
+```bash
+dotnet run
+```
+
+A API será iniciada localmente.
+
+### 5. Execute o frontend
+
+Abra a pasta do projeto no Visual Studio Code e execute o arquivo:
+
+```text
+frontend/index.html
+```
+
+utilizando a extensão **Live Server**.
+
+Durante o desenvolvimento, o frontend foi executado em:
+
+```text
+http://127.0.0.1:5500
+```
+
+> O projeto utiliza CORS configurado para esse endereço durante a execução local.
 
 ## 🔗 Principais endpoints
 
